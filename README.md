@@ -1,4 +1,4 @@
-# Chegg Skills Back-end Web Development Final Capstone - We Love Movies
+# Chegg Skills Back-end Web Development Final Capstone
 This repository contains the source code for the We Love Movies Capstone to the Chegg Skills Back-end Web Development Certificate Program.
 
 ## Project Structure
