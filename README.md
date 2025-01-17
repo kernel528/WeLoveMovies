@@ -70,3 +70,54 @@ Final_Capstone_WeLoveMovies_Guild_Node_18_1
 ````
 
 ### Database Setup
+- For local testing, I am using a docker-based database setup on a host called `swarm-m3` with a new database called: `chegg_welovemovies_dev`
+- For remote/deployment, I will use a `Render` hosted DB instance: *Info TBD*
+
+Local DB Setup with Docker
+1. Launch docker `psql` container and create DB:
+    ```bash
+    docker container run -it --rm --name postgres-psql-swarm --platform=linux/amd64 kernel528/postgres:16-arm64 psql -h 192.168.1.33 -U postgres -d chegg_books_dev
+    chegg_books_dev=# CREATE DATABASE chegg_welovemovies_dev;
+    CREATE DATABASE
+    chegg_books_dev=# \l
+    List of databases
+    Name          |  Owner   | Encoding | Locale Provider |  Collate   |   Ctype    | ICU Locale | ICU Rules |   Access privileges
+    ------------------------+----------+----------+-----------------+------------+------------+------------+-----------+-----------------------
+    chegg_books            | postgres | UTF8     | libc            | en_US.utf8 | en_US.utf8 |            |           |
+    chegg_books_dev        | postgres | UTF8     | libc            | en_US.utf8 | en_US.utf8 |            |           |
+    chegg_dev              | postgres | UTF8     | libc            | en_US.utf8 | en_US.utf8 |            |           |
+    chegg_mock_practice    | postgres | UTF8     | libc            | en_US.utf8 | en_US.utf8 |            |           |
+    chegg_node_dev         | postgres | UTF8     | libc            | en_US.utf8 | en_US.utf8 |            |           |
+    chegg_welovemovies_dev | postgres | UTF8     | libc            | en_US.utf8 | en_US.utf8 |            |           |
+    postgres               | postgres | UTF8     | libc            | en_US.utf8 | en_US.utf8 |            |           |
+    template0              | postgres | UTF8     | libc            | en_US.utf8 | en_US.utf8 |            |           | =c/postgres          +
+    |          |          |                 |            |            |            |           | postgres=CTc/postgres
+    template1              | postgres | UTF8     | libc            | en_US.utf8 | en_US.utf8 |            |           | =c/postgres          +
+    |          |          |                 |            |            |            |           | postgres=CTc/postgres
+    (9 rows)
+    ```
+2. Setup `DBeaver` connection to be able to test/validate DB updates.
+3. Run `npm install` to install packages.  Then attempt to startup app as is:
+   ```bash
+   : npm run start:dev
+   
+   > project-movie-back-end@1.0.0 start:dev
+   > nodemon src/server.js
+   
+   [nodemon] 2.0.22
+   [nodemon] to restart at any time, enter `rs`
+   [nodemon] watching path(s): *.*
+   [nodemon] watching extensions: js,mjs,json
+   [nodemon] starting `node src/server.js`
+   Error: connect ECONNREFUSED ::1:5432
+       at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+     errno: -61,
+     code: 'ECONNREFUSED',
+     syscall: 'connect',
+     address: '::1',
+     port: 5432
+   }
+   [nodemon] clean exit - waiting for changes before restart
+   
+   ```
+4. Setup `knex` integration
