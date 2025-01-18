@@ -14,6 +14,7 @@ const reviewsRouter = require("./reviews/reviews.router");
 
 // TODO: Add your code here
 app.use("/movies", moviesRouter);
+app.use("/theaters", theatersRouter);
 
 app.use(errorHandler);
 
