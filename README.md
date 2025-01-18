@@ -191,4 +191,12 @@ Enable `/movies` routes
       Test Suites: 3 failed, 3 total
       Tests:       11 failed, 1 passed, 12 total
      ```
-2. Task 2:  
+2. Task 2: GET /movies?is_showing=true
+   - Updated the `movies.controller.js` list function to include a check for `is_showing` in the `query.params` and if true, then return only those movies.
+   - When opening browser to http://localhost:5025/movies?is_showing=true the output is sorted differently.  Same with `postman`.
+   - Ran `npm test` to check test status:
+     ```bash
+      Test Suites: 3 failed, 3 total
+      Tests:       10 failed, 2 passed, 12 total
+     ```
+3. 
