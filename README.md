@@ -267,6 +267,12 @@ Local DB Setup with Docker
    - Updated the `src/reviews/reviews.service.js` for the `destroy` function.  The other middleware checks were good.
 
 ### General Tasks
+Reviewed code to make sure each of these are covered from the rubric
+- [ x ] Your app.js file and server.js file are correctly configured, with your app.js file exporting the application created from Express. 
+- [ x ] You use the cors package so that requests from the frontend can correctly reach the backend. I set this up in the app.js to allow all routes from frontend to work.  Could limit this if needed. 
+- [ x ] If a request is made to a route that doesn't exist, the server returns a 404 error. 
+- [ x ] If a request is made to a route that exists but the HTTP method is wrong, the server returns a 405 error. 
+- [ x ] All of your routes respond with the appropriate status code and use a data key in the response.
 
 ### Deploy to Cloud
 Prior to deployment, I decided to move all content from the subfolder `Final_Capstone_WeLoveMovies_Guild_Node_18_1` up to main folder.  This simplifies future deployments.
@@ -334,3 +340,159 @@ Prior to deployment, I decided to move all content from the subfolder `Final_Cap
      - Value:  `HIDDEN`
 6. Click on the `Deploy Web Service` button.
 7. This should take to next screen to monitor the app deployment.  
+8. Open web browser to the URL for your deployed app: https://kernel528-welovemovies.onrender.com 
+   - Sample routes:
+     - https://kernel528-welovemovies.onrender.com/movies
+     - https://kernel528-welovemovies.onrender.com/movies/5
+     - https://kernel528-welovemovies.onrender.com/movies/5/theaters
+     - https://kernel528-welovemovies.onrender.com/theaters
+
+### Project rubric
+For your project to pass, all of the following statements must be true. 
+- [ x ] All the tests are passing in Qualified. 
+- [ x ] The migrations can be correctly run and rolled back. 
+- [ x ] The seed command can be run multiple times and will work correctly. 
+- [ x ] A response is included for Method Not Allowed. 
+- [ x ] The cors package is included. 
+- [ x ] The backend application is deployed and working.
+
+### Validations
+I ran the following migrations, rollbacks, and seed/re-seed multiple times on both `dev` and `prod` deployments.
+   ```bash
+   # joe @ obiwan in ~/github/kernel528/Chegg-Skills/Projects/Backend-Web-Dev/WeLoveMovies on git:deploy-to-cloud [2025-01-18 14:13:09]
+   : npx knex migrate:list                                   
+   Using environment: development
+   Found 5 Completed Migration file/files.
+   20250117174804_createCriticsTable.js 
+   20250117174832_createMoviesTable.js 
+   20250117174844_createTheatersTable.js 
+   20250117174852_createReviewsTable.js 
+   20250117174906_createMovies_TheatersTable.js 
+   No Pending Migration files Found.
+   
+   # joe @ obiwan in ~/github/kernel528/Chegg-Skills/Projects/Backend-Web-Dev/WeLoveMovies on git:deploy-to-cloud x [2025-01-18 14:35:49] C:1 
+   : npx knex seed:run
+   Using environment: development
+   Ran 6 seed files
+   
+   # joe @ obiwan in ~/github/kernel528/Chegg-Skills/Projects/Backend-Web-Dev/WeLoveMovies on git:deploy-to-cloud x [2025-01-18 14:35:53]
+   : NODE_ENV=production npx knex seed:run
+   Using environment: production
+   Ran 6 seed files
+   
+   # joe @ obiwan in ~/github/kernel528/Chegg-Skills/Projects/Backend-Web-Dev/WeLoveMovies on git:deploy-to-cloud x [2025-01-18 14:36:15]
+   : npx knex migrate:list
+   Using environment: development
+   Found 5 Completed Migration file/files.
+   20250117174804_createCriticsTable.js 
+   20250117174832_createMoviesTable.js 
+   20250117174844_createTheatersTable.js 
+   20250117174852_createReviewsTable.js 
+   20250117174906_createMovies_TheatersTable.js 
+   No Pending Migration files Found.
+   
+   : npx knex migrate:down 20250117174906_createMovies_TheatersTable.js  
+   Using environment: development
+   Batch 2 rolled back the following migrations:
+   20250117174906_createMovies_TheatersTable.js
+   
+   # joe @ obiwan in ~/github/kernel528/Chegg-Skills/Projects/Backend-Web-Dev/WeLoveMovies on git:deploy-to-cloud x [2025-01-18 14:39:08]
+   : npx knex migrate:list
+   Using environment: development
+   Found 4 Completed Migration file/files.
+   20250117174804_createCriticsTable.js 
+   20250117174832_createMoviesTable.js 
+   20250117174844_createTheatersTable.js 
+   20250117174852_createReviewsTable.js 
+   Found 1 Pending Migration file/files.
+   20250117174906_createMovies_TheatersTable.js 
+   
+   # joe @ obiwan in ~/github/kernel528/Chegg-Skills/Projects/Backend-Web-Dev/WeLoveMovies on git:deploy-to-cloud x [2025-01-18 14:39:14]
+   : for a in 20250117174852_createReviewsTable.js 20250117174844_createTheatersTable.js 20250117174832_createMoviesTable.js 20250117174804_createCriticsTable.js                                            
+   > do
+   > npx knex migrate:down $a
+   > done
+   Using environment: development
+   Batch 1 rolled back the following migrations:
+   20250117174852_createReviewsTable.js
+   Using environment: development
+   Batch 1 rolled back the following migrations:
+   20250117174844_createTheatersTable.js
+   Using environment: development
+   Batch 1 rolled back the following migrations:
+   20250117174832_createMoviesTable.js
+   Using environment: development
+   Batch 1 rolled back the following migrations:
+   20250117174804_createCriticsTable.js
+   # joe @ obiwan in ~/github/kernel528/Chegg-Skills/Projects/Backend-Web-Dev/WeLoveMovies on git:deploy-to-cloud x [2025-01-18 14:39:50]
+   : npx knex migrate:list
+   Using environment: development
+   No Completed Migration files Found. 
+   Found 5 Pending Migration file/files.
+   20250117174804_createCriticsTable.js 
+   20250117174832_createMoviesTable.js 
+   20250117174844_createTheatersTable.js 
+   20250117174852_createReviewsTable.js 
+   20250117174906_createMovies_TheatersTable.js 
+   
+   # joe @ obiwan in ~/github/kernel528/Chegg-Skills/Projects/Backend-Web-Dev/WeLoveMovies on git:deploy-to-cloud x [2025-01-18 14:40:20]
+   : npx knex migrate:latest
+   Using environment: development
+   Batch 1 run: 5 migrations
+   # joe @ obiwan in ~/github/kernel528/Chegg-Skills/Projects/Backend-Web-Dev/WeLoveMovies on git:deploy-to-cloud x [2025-01-18 14:40:28]
+   : npx knex seed:run
+   Using environment: development
+   Ran 6 seed files
+   # joe @ obiwan in ~/github/kernel528/Chegg-Skills/Projects/Backend-Web-Dev/WeLoveMovies on git:deploy-to-cloud x [2025-01-18 14:40:38]
+   : NODE_ENV=production npx knex migrate:list
+   Using environment: production
+   Found 5 Completed Migration file/files.
+   20250117174804_createCriticsTable.js 
+   20250117174832_createMoviesTable.js 
+   20250117174844_createTheatersTable.js 
+   20250117174852_createReviewsTable.js 
+   20250117174906_createMovies_TheatersTable.js 
+   No Pending Migration files Found.
+   
+   # joe @ obiwan in ~/github/kernel528/Chegg-Skills/Projects/Backend-Web-Dev/WeLoveMovies on git:deploy-to-cloud x [2025-01-18 14:41:13]
+   : for a in 20250117174906_createMovies_TheatersTable.js 20250117174852_createReviewsTable.js 20250117174844_createTheatersTable.js 20250117174832_createMoviesTable.js 20250117174804_createCriticsTable.js 
+   > do
+   > NODE_ENV=production npx knex migrate:down $a
+   > done
+   Using environment: production
+   Batch 1 rolled back the following migrations:
+   20250117174906_createMovies_TheatersTable.js
+   Using environment: production
+   Batch 1 rolled back the following migrations:
+   20250117174852_createReviewsTable.js
+   Using environment: production
+   Batch 1 rolled back the following migrations:
+   20250117174844_createTheatersTable.js
+   Using environment: production
+   Batch 1 rolled back the following migrations:
+   20250117174832_createMoviesTable.js
+   Using environment: production
+   Batch 1 rolled back the following migrations:
+   20250117174804_createCriticsTable.js
+   # joe @ obiwan in ~/github/kernel528/Chegg-Skills/Projects/Backend-Web-Dev/WeLoveMovies on git:deploy-to-cloud x [2025-01-18 14:41:51]
+   : NODE_ENV=production npx knex migrate:list
+   Using environment: production
+   No Completed Migration files Found. 
+   Found 5 Pending Migration file/files.
+   20250117174804_createCriticsTable.js 
+   20250117174832_createMoviesTable.js 
+   20250117174844_createTheatersTable.js 
+   20250117174852_createReviewsTable.js 
+   20250117174906_createMovies_TheatersTable.js 
+   
+   # joe @ obiwan in ~/github/kernel528/Chegg-Skills/Projects/Backend-Web-Dev/WeLoveMovies on git:deploy-to-cloud x [2025-01-18 14:41:57]
+   : NODE_ENV=production npx knex migrate:latest
+   Using environment: production
+   Batch 1 run: 5 migrations
+   
+   # joe @ obiwan in ~/github/kernel528/Chegg-Skills/Projects/Backend-Web-Dev/WeLoveMovies on git:deploy-to-cloud x [2025-01-18 14:42:50]
+   : NODE_ENV=production npx knex seed:run
+   Using environment: production
+   Ran 6 seed files
+   
+   ```
