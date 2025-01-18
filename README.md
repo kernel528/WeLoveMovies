@@ -186,4 +186,9 @@ Enable `/movies` routes
 1. Task 1:  GET /movies (all)
    - Updated the `movies.controller.js` list function.  Enabled route in `movies.router.js`.  The `movies.service.js` was already setup for list (get all).
    - When opening browser to http://localhost:5025/movies all movies were returned from `dev` database.
+   - Ran `npm test` to check test status:
+     ```bash
+      Test Suites: 3 failed, 3 total
+      Tests:       11 failed, 1 passed, 12 total
+     ```
 2. Task 2:  
