@@ -179,4 +179,11 @@ Local DB Setup with Docker
    Ran 6 seed files
    ```
    - After seeding the files I ran some `select` queries using `dbeaver` and confirmed data loaded.
-10. 
+
+### Setup Routes
+
+Enable `/movies` routes
+1. Task 1:  GET /movies (all)
+   - Updated the `movies.controller.js` list function.  Enabled route in `movies.router.js`.  The `movies.service.js` was already setup for list (get all).
+   - When opening browser to http://localhost:5025/movies all movies were returned from `dev` database.
+2. Task 2:  
