@@ -21,4 +21,9 @@ router
 router
     .use("/:movie_id/reviews", controller.movieExists, reviewsRouter);
 
+// Catch all unhandled routes for /movies/:movieId/*
+router.all("/:movieId/*", (req, res) => {
+    res.status(404).json({ error: "Not found" });
+});
+
 module.exports = router;
