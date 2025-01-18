@@ -18,4 +18,7 @@ router
 router
     .use("/:movie_id/theaters", controller.movieExists, theatersRouter);
 
+router
+    .use("/:movie_id/reviews", controller.movieExists, reviewsRouter);
+
 module.exports = router;

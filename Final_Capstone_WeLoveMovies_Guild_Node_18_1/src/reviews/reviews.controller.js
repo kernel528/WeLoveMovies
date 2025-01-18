@@ -15,19 +15,20 @@ async function destroy(request, response) {
 
 async function list(request, response) {
   // TODO: Write your code here
-
-  response.json({  });
+  const { movie_id } = request.params;
+  const data = await service.list(movie_id);
+  response.json({ data });
 }
 
 function hasMovieIdInPath(request, response, next) {
-  if (request.params.movieId) {
+  if (request.params.movie_id) {
     return next();
   }
   methodNotAllowed(request, response, next);
 }
 
 function noMovieIdInPath(request, response, next) {
-  if (request.params.movieId) {
+  if (request.params.movie_id) {
     return methodNotAllowed(request, response, next);
   }
   next();
