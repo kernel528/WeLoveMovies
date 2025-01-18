@@ -3,7 +3,6 @@ const db = require("../db/connection");
 const tableName = "reviews";
 
 async function destroy(review_id) {
-  // TODO: Write your code here
     return db("reviews").where({ review_id: review_id }).delete();
 }
 
@@ -41,7 +40,6 @@ async function list(movie_id) {
 }
 
 async function read(review_id) {
-  // TODO: Write your code here
     return db("reviews").where({ review_id: review_id }).first();
 }
 
