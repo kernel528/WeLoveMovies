@@ -199,4 +199,12 @@ Enable `/movies` routes
       Test Suites: 3 failed, 3 total
       Tests:       10 failed, 2 passed, 12 total
      ```
-3. 
+3. Task 3: GET /movies/:movieId
+   - Updated the `movies.controller.js` with code for checking if movie exists (`movieExists`) and enabled route in `movies.router.js` and updated `movies.service.js` read query.
+   - Validated with browser route to `movies/:movie_id` and `postman` READ.
+   - Ran `npm test` to check test status:
+     ```bash
+      Test Suites: 3 failed, 3 total
+      Tests:       9 failed, 3 passed, 12 total
+     ```
+4. 
