@@ -2,19 +2,11 @@ const db = require("../db/connection");
 
 const tableName = "reviews";
 
-async function destroy(reviewId) {
-  // TODO: Write your code here
-  
+async function destroy(review_id) {
+    return db("reviews").where({ review_id: review_id }).delete();
 }
 
 async function list(movie_id) {
-  // TODO: Write your code here
-//   return db("reviews as r")
-//       .join("critics as c", "r.critic_id", "c.critic_id")
-//       .select("r.*")
-//       .where({ "r.movie_id": movie_id })
-//       .first()
-//       .then();
     return db("reviews as r")
         .join("critics as c", "r.critic_id", "c.critic_id")
         .select(
@@ -47,9 +39,8 @@ async function list(movie_id) {
         );
 }
 
-async function read(reviewId) {
-  // TODO: Write your code here
-  
+async function read(review_id) {
+    return db("reviews").where({ review_id: review_id }).first();
 }
 
 async function readCritic(critic_id) {

@@ -257,8 +257,14 @@ Local DB Setup with Docker
      ```
 
 ### Review Routes
-- PUT
-- DELETE
+1. Task 1: UPDATE /reviews/:reviewId (PUT), UPDATE /reviews/:reviewId (incorrect ID)
+   - Updated the `src/reviews/reviews.controller.js` for the `reviewExists` middleware and `update` function.  
+   - Updated the `src/reviews/reviews.router.js` to enable the `"/:review_id"` route for `PUT` method.
+   - Updated the `src/reviews/reviews.service.js` for the `read` function.  The `updated` and other middleware checks were good.
+2. Task 2: DELETE /reviews/:reviewId (DELETE), DELETE /reviews/:reviewId (incorrect ID)
+   - Updated the `src/reviews/reviews.controller.js` for the `destroy` function.
+   - Updated the `src/reviews/reviews.router.js` to enable the `"/:review_id"` route for `DELETE` method.
+   - Updated the `src/reviews/reviews.service.js` for the `destroy` function.  The other middleware checks were good.
 
 ### General Tasks
 
