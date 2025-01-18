@@ -270,7 +270,19 @@ Local DB Setup with Docker
 
 ### Deploy to Cloud
 Prior to deployment, I decided to move all content from the subfolder `Final_Capstone_WeLoveMovies_Guild_Node_18_1` up to main folder.  This simplifies future deployments.
-1. 
+
+   ```bash
+   : pwd
+   ~/github/kernel528/Chegg-Skills/Projects/Backend-Web-Dev/WeLoveMovies/Final_Capstone_WeLoveMovies_Guild_Node_18_1
+   : mv .attachignore .env .gitignore .qualified-attach.json docs knexfile.js node_modules/ package* src test ../
+   
+   : git add .
+   : git commit -m "Moved all files from Final_Capstone_WeLoveMovies_Guild_Node_18_1 to up to be off root of WeLoveMovies repo."
+   <snip>
+   
+   : rmdir Final_Capstone_WeLoveMovies_Guild_Node_18_1
+   ```
+
 #### Setup Render Hosted Database
 1. Setup Render DB:
    - I created a new free Render hosted DB.  Connection details are stored in the local `.env` file.  These will be used when deploying back-end app.
