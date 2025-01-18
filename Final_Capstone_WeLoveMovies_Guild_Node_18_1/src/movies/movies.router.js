@@ -16,6 +16,6 @@ router
     .all(methodNotAllowed);
 
 router
-    .use("/:movie_id/theaters", theatersRouter);
+    .use("/:movie_id/theaters", controller.movieExists, theatersRouter);
 
 module.exports = router;
