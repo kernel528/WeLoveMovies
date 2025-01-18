@@ -2,7 +2,7 @@
 This repository contains the source code for the We Love Movies Capstone to the Chegg Skills Back-end Web Development Certificate Program.
 
 ### Front-end Setup
-- The starter-movie-front-end is a symlink in this repo to the fork from Chegg Skills. This was setup to test progress in addition to test cases.
+- The starter-movie-front-end is a symlink in this repo to the fork from Chegg Skills located here: [starter-movie-frontend](https://github.com/kernel528/starter-movie-front-end). This was setup to test progress in addition to test cases.
 - Due to using the `qualified-attach` to sync local changes with qualified site, this defaulted to the `Final_Capstone_WeLoveMovies_Guild_Node_18_1` folder name.
 
 
