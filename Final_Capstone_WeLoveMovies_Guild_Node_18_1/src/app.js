@@ -3,6 +3,7 @@ if (process.env.USER) require("dotenv").config();
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const errorHandler = require("./errors/errorHandler");
 
 app.use(cors());
 app.use(express.json());
@@ -13,5 +14,7 @@ const reviewsRouter = require("./reviews/reviews.router");
 
 // TODO: Add your code here
 app.use("/movies", moviesRouter);
+
+app.use(errorHandler);
 
 module.exports = app;

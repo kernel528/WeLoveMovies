@@ -207,4 +207,11 @@ Enable `/movies` routes
       Test Suites: 3 failed, 3 total
       Tests:       9 failed, 3 passed, 12 total
      ```
-4. 
+4. Task 4: GET /movies/:movie_id invalid ID
+   - Updated the `movies.controller.js` movieExists function with correct message.  Added custom `errorHandler.js` to `errors` and updated the `app.js` to use this.
+   - Validated with `postman` by using invalid movie_id.
+   - Ran `npm test` to check test status:
+     ```bash
+      Test Suites: 3 failed, 3 total
+      Tests:       8 failed, 4 passed, 12 total
+     ```
