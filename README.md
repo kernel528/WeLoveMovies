@@ -268,4 +268,69 @@ Local DB Setup with Docker
 
 ### General Tasks
 
-### Deploy
+### Deploy to Cloud
+Prior to deployment, I decided to move all content from the subfolder `Final_Capstone_WeLoveMovies_Guild_Node_18_1` up to main folder.  This simplifies future deployments.
+
+   ```bash
+   : pwd
+   ~/github/kernel528/Chegg-Skills/Projects/Backend-Web-Dev/WeLoveMovies/Final_Capstone_WeLoveMovies_Guild_Node_18_1
+   : mv .attachignore .env .gitignore .qualified-attach.json docs knexfile.js node_modules/ package* src test ../
+   
+   : git add .
+   : git commit -m "Moved all files from Final_Capstone_WeLoveMovies_Guild_Node_18_1 to up to be off root of WeLoveMovies repo."
+   <snip>
+   
+   : rmdir Final_Capstone_WeLoveMovies_Guild_Node_18_1
+   ```
+
+#### Setup Render Hosted Database
+1. Setup Render DB:
+   - I created a new free Render hosted DB.  Connection details are stored in the local `.env` file.  These will be used when deploying back-end app.
+2. Setup `DBeaver` connection to validate credentials and to be able to validate tables and data setup.  Tested connection & saved.
+3. Change to app folder:  `/Users/joe/github/kernel528/Chegg-Skills/Projects/Backend-Web-Dev/WeLoveMovies/Final_Capstone_WeLoveMovies_Guild_Node_18_1`
+4. Update the `.env` to set the `NODE_ENV=production` (or you can preceded all commands with `NODE_ENV=production <cmd>`)
+5. Run `knex` migrations on production render hosted DB.
+   ```bash
+   : npx knex migrate:list
+   Using environment: production
+   No Completed Migration files Found.
+   Found 5 Pending Migration file/files.
+   20250117174804_createCriticsTable.js
+   20250117174832_createMoviesTable.js
+   20250117174844_createTheatersTable.js
+   20250117174852_createReviewsTable.js
+   20250117174906_createMovies_TheatersTable.js
+   
+   : npx knex migrate:latest
+   Using environment: production
+   Batch 1 run: 5 migrations
+   ```
+   - I ran `select * from <table>;` for each table to confirm created.  No data at this time.
+6. Run `knex` seed to load sample data to the render hosted DB.
+   ```bash
+   : npx knex seed:run
+   Using environment: production
+   Ran 6 seed files
+   ```
+   - I again ran the same `select * from <table>;` for each table to confirm data existed.
+
+#### Deploy Render Hosted Web App
+1. On the Render dashboard, click on the `+New` button in top-right.  
+2. Select `Web Service`
+3. This should remember previously connected `https://github.com/kernel528` git organization.
+4. Select the `WeLoveMovies` repository.
+5. Fill out the fields:
+   - Name:  `kernel528-WeLoveMovies`
+   - Project:  Leave as part of current project.
+   - Language:  `Node`
+   - Branch: `main`
+   - Region: Leave with default value.
+   - Root Directory:  No change/Optional
+   - Build Command:  `npm install` 
+   - Start Command:  `npm start`
+   - Instance Type:  Free
+   - Environment Variables:  Enter values from `.env` file.
+     - Name:  `PRODUCTION_DATABASE_URL`
+     - Value:  `HIDDEN`
+6. Click on the `Deploy Web Service` button.
+7. This should take to next screen to monitor the app deployment.  
