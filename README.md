@@ -237,12 +237,24 @@ Local DB Setup with Docker
    - Validate with `postman` that going to `/movies/:movie_id/reviews` works as expected but something like `/movies/:movie_id/critics` returns a 404 error.
    - Ran `npm test` to check test status:
      ```bash
+      PASS  test/routes/movies.test.js
+      
       Test Suites: 2 failed, 1 passed, 3 total
       Tests:       5 failed, 7 passed, 12 total
      ```
 
 ### Theater Routes
-- GET
+1. Task 1:  GET /theaters (list, all)
+   - Updated the `/src/app.js` file  to enable the `/theaters` route.  This was the only change needed due to `/movies` route enablement tasks.
+   - Validated with web browser and `postman` using the http://localhost:5001/theaters route.
+   - Ran `npm test` to check test status:
+     ```bash
+      PASS  test/routes/theaters.test.js
+      PASS  test/routes/movies.test.js
+   
+      Test Suites: 1 failed, 2 passed, 3 total
+      Tests:       4 failed, 8 passed, 12 total
+     ```
 
 ### Review Routes
 - PUT
