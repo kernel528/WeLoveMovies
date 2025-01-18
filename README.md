@@ -180,7 +180,7 @@ Local DB Setup with Docker
    ```
    - After seeding the files I ran some `select` queries using `dbeaver` and confirmed data loaded.
 
-### Setup /movies Routes
+### Movie Routes
 1. Task 1:  GET /movies (all)
    - Updated the `movies.controller.js` list function.  Enabled route in `movies.router.js`.  The `movies.service.js` was already setup for list (get all).
    - When opening browser to http://localhost:5025/movies all movies were returned from `dev` database.
@@ -223,3 +223,31 @@ Local DB Setup with Docker
       Test Suites: 3 failed, 3 total
       Tests:       7 failed, 5 passed, 12 total
      ```
+6. Task 6: GET /movies/:movie_id/reviews
+   - Updated `movies` and `reviews` src files to support returning reviews data properly in the `/movies/:movie_id/reviews` route.
+   - Fixed an issue with the `down` in the createTheatersTable migration file.
+   - Validated with `postman` proper 200 response with review data.
+   - Ran `npm test` to check test status:
+     ```bash
+      Test Suites: 3 failed, 3 total
+      Tests:       6 failed, 6 passed, 12 total
+     ```
+7. Task 7: should not include critics anywhere for the path `/movies/:movieId/critics`
+   - Had to update the `movies.router.js` file to include a catch-all handler for `/movies/:movie_id/*` not defined as valid.
+   - Validate with `postman` that going to `/movies/:movie_id/reviews` works as expected but something like `/movies/:movie_id/critics` returns a 404 error.
+   - Ran `npm test` to check test status:
+     ```bash
+      Test Suites: 2 failed, 1 passed, 3 total
+      Tests:       5 failed, 7 passed, 12 total
+     ```
+
+### Theater Routes
+- GET
+
+### Review Routes
+- PUT
+- DELETE
+
+### General Tasks
+
+### Deploy
