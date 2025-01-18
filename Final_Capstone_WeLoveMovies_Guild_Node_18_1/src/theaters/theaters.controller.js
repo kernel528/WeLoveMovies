@@ -3,7 +3,9 @@ const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 
 async function list(request, response) {
   // TODO: Add your code here
-  response.json({ });
+  const { movie_id } = request.params;
+  const data = await service.list(movie_id);
+  response.json({ data });
 }
 
 module.exports = {
