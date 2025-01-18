@@ -121,3 +121,62 @@ Local DB Setup with Docker
    
    ```
 4. Setup `knex` integration
+5. Setup the `db/migrations` 
+   ```bash
+   # joe @ obiwan in ~/github/kernel528/Chegg-Skills/Projects/Backend-Web-Dev/WeLoveMovies/Final_Capstone_WeLoveMovies_Guild_Node_18_1 on git:database-setup [2025-01-17 17:33:06] C:1 
+   : npx knex migrate:make createCriticsTable
+   Using environment: development
+   Using environment: development
+   Using environment: development
+   Created Migration: /Users/joe/github/kernel528/Chegg-Skills/Projects/Backend-Web-Dev/WeLoveMovies/Final_Capstone_WeLoveMovies_Guild_Node_18_1/src/db/migrations/20250117174804_createCriticsTable.js
+   # joe @ obiwan in ~/github/kernel528/Chegg-Skills/Projects/Backend-Web-Dev/WeLoveMovies/Final_Capstone_WeLoveMovies_Guild_Node_18_1 on git:database-setup x [2025-01-17 17:48:04]
+   : npx knex migrate:make createMoviesTable 
+   Using environment: development
+   Using environment: development
+   Using environment: development
+   Created Migration: /Users/joe/github/kernel528/Chegg-Skills/Projects/Backend-Web-Dev/WeLoveMovies/Final_Capstone_WeLoveMovies_Guild_Node_18_1/src/db/migrations/20250117174832_createMoviesTable.js
+   # joe @ obiwan in ~/github/kernel528/Chegg-Skills/Projects/Backend-Web-Dev/WeLoveMovies/Final_Capstone_WeLoveMovies_Guild_Node_18_1 on git:database-setup x [2025-01-17 17:48:32]
+   : npx knex migrate:make createTheatersTable
+   Using environment: development
+   Using environment: development
+   Using environment: development
+   Created Migration: /Users/joe/github/kernel528/Chegg-Skills/Projects/Backend-Web-Dev/WeLoveMovies/Final_Capstone_WeLoveMovies_Guild_Node_18_1/src/db/migrations/20250117174844_createTheatersTable.js
+   # joe @ obiwan in ~/github/kernel528/Chegg-Skills/Projects/Backend-Web-Dev/WeLoveMovies/Final_Capstone_WeLoveMovies_Guild_Node_18_1 on git:database-setup x [2025-01-17 17:48:44]
+   : npx knex migrate:make createReviewsTable 
+   Using environment: development
+   Using environment: development
+   Using environment: development
+   Created Migration: /Users/joe/github/kernel528/Chegg-Skills/Projects/Backend-Web-Dev/WeLoveMovies/Final_Capstone_WeLoveMovies_Guild_Node_18_1/src/db/migrations/20250117174852_createReviewsTable.js
+   # joe @ obiwan in ~/github/kernel528/Chegg-Skills/Projects/Backend-Web-Dev/WeLoveMovies/Final_Capstone_WeLoveMovies_Guild_Node_18_1 on git:database-setup x [2025-01-17 17:48:52]
+   : npx knex migrate:make createMovies_TheatersTable
+   Using environment: development
+   Using environment: development
+   Using environment: development
+   Created Migration: /Users/joe/github/kernel528/Chegg-Skills/Projects/Backend-Web-Dev/WeLoveMovies/Final_Capstone_WeLoveMovies_Guild_Node_18_1/src/db/migrations/20250117174906_createMovies_TheatersTable.js
+   ```
+6. Customize/Update the `db/migrations` files.
+7. Run the migrations.  Note: Because I had the API server running in `dev` mode it picked up the migration files originally when created.  Had to delete the original `knex_migrations` tables.
+   ```bash
+   : npx knex migrate:list  
+   Using environment: development
+   No Completed Migration files Found. 
+   Found 5 Pending Migration file/files.
+   20250117174804_createCriticsTable.js 
+   20250117174832_createMoviesTable.js 
+   20250117174844_createTheatersTable.js 
+   20250117174852_createReviewsTable.js 
+   20250117174906_createMovies_TheatersTable.js 
+   
+   : npx knex migrate:latest
+   Using environment: development
+   Batch 1 run: 5 migrations
+   ```
+8. This indicates it ran fine and checking `dbeaver` shows the tables were created.  The `npm test` failed as this uses sqllite for in-memory testing.
+9. Seed the data:
+   ```bash
+   : npx knex seed:run
+   Using environment: development
+   Ran 6 seed files
+   ```
+   - After seeding the files I ran some `select` queries using `dbeaver` and confirmed data loaded.
+10. 
