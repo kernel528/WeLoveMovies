@@ -496,3 +496,10 @@ I ran the following migrations, rollbacks, and seed/re-seed multiple times on bo
    Ran 6 seed files
    
    ```
+
+#### TODO
+- Update to support using a `local` environment designation. This would support local development.
+- This would support three-tiered app dev:
+  - `local` = local workstation (e.g. local docker for DB, tools, etc)
+  - `development` = local network development (e.g. docker swarm host, etc)
+  - `production` = deployable to cloud service (e.g. render.com)
