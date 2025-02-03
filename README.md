@@ -497,9 +497,24 @@ I ran the following migrations, rollbacks, and seed/re-seed multiple times on bo
    
    ```
 
-#### TODO
-- Update to support using a `local` environment designation. This would support local development.
-- This would support three-tiered app dev:
-  - `local` = local workstation (e.g. local docker for DB, tools, etc)
-  - `development` = local network development (e.g. docker swarm host, etc)
-  - `production` = deployable to cloud service (e.g. render.com)
+#### Local Development Support
+- Updated `knexfile.js` to include a local development using docker.
+- To run with local development, perform the following steps.  
+- Setup local data persistence, set a docker volume and map that to the docker container. 
+  ```bash
+  docker volume create postgres-obiwan-data
+  ```
+- Update the `.env` file and set the `NODE_ENV=development`
+  ```bash
+  docker container run -it --name postgres-obiwan --hostname postgres-obiwan --restart=always -e POSTGRES_PASSWORD=<some password> -p 5432:5432 -v postgres-obiwan-data:/var/lib/postgresql/data -d kernel528/postgres:16
+  ```
+- Start the backend...
+  ```bash
+  npm run start:dev
+  ```
+- Start the front-end...
+  ```bash
+  cd <path to front-end>
+  npm run start-legacy
+  ```
+- Do the usual stuff with `knex` integration to setup the DB, tables, and seed data - refer to #validations section above for example.
