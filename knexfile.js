@@ -3,19 +3,24 @@ require("dotenv").config();
 
 const {
   NODE_ENV = "development",
+  LOCAL_DATABASE_URL,
   DEVELOPMENT_DATABASE_URL,
   PRODUCTION_DATABASE_URL,
 } = process.env;
-const URL =
-    NODE_ENV === "production"
-        ? PRODUCTION_DATABASE_URL
-        : DEVELOPMENT_DATABASE_URL;
-// const DATABASE_URL = URL;
+
+// Select the appropriate database URL based on NODE_ENV
+const DATABASE_URLS = {
+  local: LOCAL_DATABASE_URL,
+  development: DEVELOPMENT_DATABASE_URL,
+  production: PRODUCTION_DATABASE_URL,
+};
+
+const DATABASE_URL = DATABASE_URLS[NODE_ENV];
 
 module.exports = {
-  development: {
+  local: {
     client: "postgresql",
-    connection: URL,
+    connection: LOCAL_DATABASE_URL,
     pool: { min: 0, max: 5 },
     migrations: {
       directory: path.join(__dirname, "src", "db", "migrations"),
@@ -24,13 +29,28 @@ module.exports = {
       directory: path.join(__dirname, "src", "db", "seeds"),
     },
     ssl: {
-      rejectUnauthorized: false // This will allow connections without requiring SSL certificates to be valid.
-    }
+      rejectUnauthorized: false,
+    },
+  },
+
+  development: {
+    client: "postgresql",
+    connection: DEVELOPMENT_DATABASE_URL,
+    pool: { min: 0, max: 5 },
+    migrations: {
+      directory: path.join(__dirname, "src", "db", "migrations"),
+    },
+    seeds: {
+      directory: path.join(__dirname, "src", "db", "seeds"),
+    },
+    ssl: {
+      rejectUnauthorized: false,
+    },
   },
 
   production: {
     client: "postgresql",
-    connection: URL,
+    connection: PRODUCTION_DATABASE_URL,
     pool: { min: 0, max: 5 },
     migrations: {
       directory: path.join(__dirname, "src", "db", "migrations"),
@@ -39,8 +59,8 @@ module.exports = {
       directory: path.join(__dirname, "src", "db", "seeds"),
     },
     ssl: {
-      rejectUnauthorized: false // This will allow connections without requiring SSL certificates to be valid.
-    }
+      rejectUnauthorized: false,
+    },
   },
 
   test: {
