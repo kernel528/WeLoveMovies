@@ -52,6 +52,9 @@ Will get a notification from Render indicating the DB will be deleted due to fre
        Using environment: production
        Ran 6 seed files
      ```
-9. Restart backend and frontend application instances...
+9.  Update the backend application environment variable for the `PRODUCTION_DATABASE_URL`
+    - This should match the `.env` file `PRODUCTION_DATABASE_URL`
+10. Restart backend and frontend application instances...
     - Resume [kernel528-WeLoveMovies-front-end](https://dashboard.render.com/web/srv-cu61j7l6l47c73btue80) service and initiate a `clear cache and rebuild`
+      - Once this is confirmed active, then proceed to resume the front-end below...
     - Resume [kernel528-WeLoveMovies-back-end](https://dashboard.render.com/web/srv-cu60jl56l47c73btmg3g) service and initiate a `clear cache and rebuild`
