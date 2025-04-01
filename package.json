@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "braces": "^3.0.3",
-    "jest": "^26.6.3",
+    "jest": "^29.7.0",
     "nodemon": "^3.1.9",
     "supertest": "^6.1.3"
   }
