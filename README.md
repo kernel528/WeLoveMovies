@@ -1,3 +1,5 @@
+[![Latest Version](https://img.shields.io/github/v/tag/kernel528/WeLoveMovies)](https://github.com/kernel528/WeLoveMovies/releases/latest)
+
 # Chegg Skills Back-end Web Development Capstone
 This repository contains the source code for the We Love Movies Capstone to the Chegg Skills Back-end Web Development Certificate Program.
 
