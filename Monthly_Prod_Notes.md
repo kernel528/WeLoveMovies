@@ -20,13 +20,13 @@ Will get a notification from Render indicating the DB will be deleted due to fre
        External URL: 
        Internal URL: 
      ```
-   - Encrypt file...
+5. Update DBeaver connection settings with above info to validate setup and connection. 
+6. Update the local `.env` file settings for the `PRODUCTION_DATABASE_URL` using the `External URL` value. 
+7. Encrypt file...
      ```bash
        : gpg -c <filename>.txt
      ```
-5. Update DBeaver connection settings with above info to validate setup and connection. 
-6. Update the local `.env` file settings for the `PRODUCTION_DATABASE_URL` using the `External URL` value. 
-7. Reload the sample data to the database:
+8. Reload the sample data to the database:
    - Setup tables...
      ```bash
        : NODE_ENV=production npx knex migrate:list  
@@ -51,10 +51,10 @@ Will get a notification from Render indicating the DB will be deleted due to fre
        Using environment: production
        Ran 6 seed files
      ```
-8. On render.com Instance: [kernel528-WeLoveMovies-back-end](https://dashboard.render.com/web/srv-cu60jl56l47c73btmg3g) --> [Environment](https://dashboard.render.com/web/srv-cu60jl56l47c73btmg3g/env)
+9. On render.com Instance: [kernel528-WeLoveMovies-back-end](https://dashboard.render.com/web/srv-cu60jl56l47c73btmg3g) --> [Environment](https://dashboard.render.com/web/srv-cu60jl56l47c73btmg3g/env)
    - Update the backend application environment variable for the `PRODUCTION_DATABASE_URL`
    - This should match the `.env` file `PRODUCTION_DATABASE_URL`
-9. Restart backend and frontend application instances...
+10. Restart backend and frontend application instances...
     - Resume [kernel528-WeLoveMovies-back-end](https://dashboard.render.com/web/srv-cu60jl56l47c73btmg3g) service and initiate a `clear cache and rebuild`
       - Once this is confirmed active, then proceed to resume the front-end below...
     - Resume [kernel528-WeLoveMovies-front-end](https://dashboard.render.com/web/srv-cu61j7l6l47c73btue80) service and initiate a `clear cache and rebuild`
