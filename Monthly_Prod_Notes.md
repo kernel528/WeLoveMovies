@@ -9,7 +9,16 @@ Will get a notification from Render indicating the DB will be deleted due to fre
    - [WeLoveMoviesDB](https://dashboard.render.com/d/dpg-cv1kpfhu0jms738j2da0-a)
 3. Create new DB instance
 4. Capture the usual details needed and add them to a GPG encrypted file in `home network` folder. 
-   - Put details into a .txt file and encrypt.
+   - Decrypt the existing `credentials.md.gpg` file...
+   - Linux
+     ```bash
+       : gpg --output credentials.md --decrypt credentials.md.gpg
+     ```
+   - MacOS
+     ```bash
+      
+     ```
+   - Put details into a .md file and encrypt.
      ```bash
        ### Postgres - Render Hosted - We Love Movies - 3/1/2025
        DB Name:      
@@ -22,9 +31,10 @@ Will get a notification from Render indicating the DB will be deleted due to fre
      ```
 5. Update DBeaver connection settings with above info to validate setup and connection. 
 6. Update the local `.env` file settings for the `PRODUCTION_DATABASE_URL` using the `External URL` value. 
-7. Encrypt file...
+7. Encrypt file; Delete unencrypted file; confirm overwrite if needed...
      ```bash
-       : gpg -c <filename>.txt
+       : gpg -c <filename>.md
+       : rm <path-to-file>/credentials.md
      ```
 8. Reload the sample data to the database:
    - Setup tables...
