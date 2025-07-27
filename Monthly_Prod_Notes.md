@@ -16,7 +16,7 @@ Will get a notification from Render indicating the DB will be deleted due to fre
      ```
    - MacOS
      ```bash
-      
+       : gpg -d credentials.md.gpg >> credentials.md
      ```
    - Put details into a .md file and encrypt.
      ```bash
