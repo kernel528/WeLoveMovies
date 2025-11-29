@@ -17,7 +17,7 @@ const reviewsRouter = require("./reviews/reviews.router");
 // Add routes here
 app.get("/", (req, res) => {
     res.send("Welcome to the We Love Movies API Query Service!<br>" +
-        "Build: v2.3.2, using Node.js, Express, and PostgreSQL v16.10<br>" +
+        "Build: v2.3.3, using Node.js, Express, and PostgreSQL v16.11<br>" +
         "For more information, please visit: https://github.com/kernel528/WeLoveMovies<br>");
 });
 app.use("/movies", moviesRouter);
