@@ -68,3 +68,9 @@ Will get a notification from Render indicating the DB will be deleted due to fre
     - Resume [kernel528-WeLoveMovies-back-end](https://dashboard.render.com/web/srv-cu60jl56l47c73btmg3g) service and initiate a `clear cache and rebuild`
       - Once this is confirmed active, then proceed to resume the front-end below...
     - Resume [kernel528-WeLoveMovies-front-end](https://dashboard.render.com/web/srv-cu61j7l6l47c73btue80) service and initiate a `clear cache and rebuild`
+
+### Render.com DB Refreshes
+- June 2025:     v16.9
+- July 2025:     v16.10
+- October 2025:  v17.6
+- November 2025: v17.7
