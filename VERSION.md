@@ -29,4 +29,8 @@
   * Monthly refresh of render hosted database. Upgraded to use nvm v22.15… by @kernel528 in https://github.com/kernel528/WeLoveMovies/pull/28
   * Added VERSION.md
   * Refreshed Postgres DB to version 17 - 2025-10-03
-* 2.3.1 - Incremented monthly release version to 2.3.1 due to security updates.
+* 2.3.1 - Incremented monthly release version to 2.3.1 due to security updates.  2025-10-03
+* 2.3.2 - Incremented monthly release version to 2.3.2.  2025-11-29
+* 2.3.3 - Incremental changes, but no release tagged.
+* 2.3.4 - Incremented monthly release version to 2.3.4.  2025-12-25
+* 2.4.0 - Documentation cleanup (moved detailed logs to Capstone_Project_Logs.md) and refreshed Render database to Postgres 18.  2026-01-28
