@@ -76,3 +76,4 @@ Will get a notification from Render indicating the DB will be deleted due to fre
 - November 2025: v17.7
 - December 2025: v17.7
 - January 2026:  v18.1
+- February 2026: v18.x (monthly refresh + reseed)
