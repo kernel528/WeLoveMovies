@@ -35,3 +35,4 @@
 * 2.3.4 - Incremented monthly release version to 2.3.4.  2025-12-25
 * 2.4.0 - Documentation cleanup (moved detailed logs to Capstone_Project_Logs.md) and refreshed Render database to Postgres 18.  2026-01-28
 * 2.4.1 - Monthly Render database refresh and data reseed (Postgres 18).  Updated production maintenance documentation.  2026-02-22
+* 2.4.2 - Monthly Render database refresh and production redeploy runbook update.  2026-03-28
