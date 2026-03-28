@@ -1,79 +1,105 @@
 # We Love Movies
 
-### Monthly Production Maintenance Steps on Render.com
-Will get a notification from Render indicating the DB will be deleted due to free tier.
-1. Suspend the We Love Movies application services.
-   - [kernel528-WeLoveMovies-front-end](https://dashboard.render.com/web/srv-cu61j7l6l47c73btue80)
-   - [kernel528-WeLoveMovies-back-end](https://dashboard.render.com/web/srv-cu60jl56l47c73btmg3g)
-2. Delete the current Postgres DB instance.
-   - [WeLoveMoviesDB](https://dashboard.render.com/d/dpg-cv1kpfhu0jms738j2da0-a)
-3. Create new DB instance
-4. Capture the usual details needed and add them to a GPG encrypted file in `home network` folder. 
-   - Decrypt the existing `credentials.md.gpg` file...
-   - Linux
-     ```bash
-       : gpg --output credentials.md --decrypt credentials.md.gpg
-     ```
-   - MacOS
-     ```bash
-       : gpg -d credentials.md.gpg >> credentials.md
-     ```
-   - Put details into a .md file and encrypt.
-     ```bash
-       ### Postgres - Render Hosted - We Love Movies - 3/1/2025
-       DB Name:      
-       DB Username:  
-       DB Password:  
-       Hostname:     
-       PSQL Command: 
-       External URL: 
-       Internal URL: 
-     ```
-5. Update DBeaver connection settings with above info to validate setup and connection. 
-6. Update the local `.env` file settings for the `PRODUCTION_DATABASE_URL` using the `External URL` value. 
-7. Encrypt file; Delete unencrypted file; confirm overwrite if needed...
-     ```bash
-       : gpg -c <filename>.md
-       : rm <path-to-file>/credentials.md
-     ```
-8. Reload the sample data to the database:
-   - Setup tables...
-     ```bash
-       : NODE_ENV=production npx knex migrate:list  
-       Using environment: production
-       No Completed Migration files Found.
-       Found 5 Pending Migration file/files.
-       20250117174804_createCriticsTable.js
-       20250117174832_createMoviesTable.js
-       20250117174844_createTheatersTable.js
-       20250117174852_createReviewsTable.js
-       20250117174906_createMovies_TheatersTable.js
-       
-       # joe @ obiwan in ~/github/kernel528/Chegg-Skills/Projects/Backend-Web-Dev/WeLoveMovies on git:refresh-2025-03 [2025-03-01 12:21:25]
-       : NODE_ENV=production npx knex migrate:latest
-       Using environment: production
-       Batch 1 run: 5 migrations
-     ```
-   - Seed data...
-     ```bash
-       # joe @ obiwan in ~/github/kernel528/Chegg-Skills/Projects/Backend-Web-Dev/WeLoveMovies on git:refresh-2025-03 [2025-03-01 12:21:35]
-       : NODE_ENV=production npx knex seed:run      
-       Using environment: production
-       Ran 6 seed files
-     ```
-9. On render.com Instance: [kernel528-WeLoveMovies-back-end](https://dashboard.render.com/web/srv-cu60jl56l47c73btmg3g) --> [Environment](https://dashboard.render.com/web/srv-cu60jl56l47c73btmg3g/env)
-   - Update the backend application environment variable for the `PRODUCTION_DATABASE_URL`
-   - This should match the `.env` file `PRODUCTION_DATABASE_URL`
-10. Restart backend and frontend application instances...
-    - Resume [kernel528-WeLoveMovies-back-end](https://dashboard.render.com/web/srv-cu60jl56l47c73btmg3g) service and initiate a `clear cache and rebuild`
-      - Once this is confirmed active, then proceed to resume the front-end below...
-    - Resume [kernel528-WeLoveMovies-front-end](https://dashboard.render.com/web/srv-cu61j7l6l47c73btue80) service and initiate a `clear cache and rebuild`
+## Monthly Render DB Refresh Runbook
+Last updated: 2026-03-28
 
-### Render.com DB Refreshes
-- June 2025:     v16.9
-- July 2025:     v16.10
-- October 2025:  v17.6
+### Scope
+This runbook covers the monthly production refresh when Render free-tier Postgres is recreated, then migrations/seeds are reapplied, and both services are redeployed.
+
+### Services
+- Front-end: [kernel528-WeLoveMovies-front-end](https://dashboard.render.com/web/srv-cu61j7l6l47c73btue80)
+- Back-end: [kernel528-WeLoveMovies-back-end](https://dashboard.render.com/web/srv-cu60jl56l47c73btmg3g)
+- Database: [WeLoveMoviesDB](https://dashboard.render.com/d/dpg-cv1kpfhu0jms738j2da0-a)
+
+## Preflight Checklist
+1. Confirm current branch/commit for deployment.
+2. Confirm working app URL for smoke tests.
+3. Confirm access to encrypted credential notes.
+4. Confirm local repo has current dependencies (`npm install`) and `knex` scripts available.
+5. Pause front-end and back-end services in Render before DB deletion.
+
+## Procedure
+1. Pause services in Render:
+   - Suspend front-end and back-end first so no writes happen during DB recreation.
+2. Recreate Render Postgres:
+   - Delete old DB instance.
+   - Create a new DB instance.
+   - Capture `DB Name`, `DB Username`, `DB Password`, `Hostname`, `PSQL Command`, `External URL`, `Internal URL`.
+3. Update encrypted credential store:
+   - Linux decrypt:
+     ```bash
+     gpg --output credentials.md --decrypt credentials.md.gpg
+     ```
+   - macOS decrypt:
+     ```bash
+     gpg -d credentials.md.gpg >> credentials.md
+     ```
+   - Add a new dated entry:
+     ```text
+     ### Postgres - Render Hosted - We Love Movies - YYYY-MM-DD
+     DB Name:
+     DB Username:
+     DB Password:
+     Hostname:
+     PSQL Command:
+     External URL:
+     Internal URL:
+     ```
+   - Re-encrypt and delete plaintext:
+     ```bash
+     gpg -c credentials.md
+     rm credentials.md
+     ```
+4. Configure local environment for production DB operations:
+   - Set `PRODUCTION_DATABASE_URL` in local `.env` to the new Render `External URL`.
+   - Keep `NODE_ENV=development` in `.env`; use command-level `NODE_ENV=production` for prod DB commands.
+5. Rebuild schema on the new production DB:
+   ```bash
+   NODE_ENV=production npx knex migrate:list
+   NODE_ENV=production npx knex migrate:latest
+   ```
+   Expected: `Batch 1 run: 5 migrations`.
+6. Seed production DB:
+   ```bash
+   NODE_ENV=production npx knex seed:run
+   ```
+   Expected: `Ran 6 seed files`.
+7. Validate production DB data:
+   - Use DBeaver and/or `psql` with the new `External URL`.
+   - Validate key table counts:
+     - `movies`
+     - `theaters`
+     - `reviews`
+8. Update Render back-end environment variable:
+   - In back-end service environment, set `PRODUCTION_DATABASE_URL` to the new DB `External URL`.
+   - Confirm there is no typo or stale host/database name.
+9. Redeploy in order:
+   - Resume back-end service and run `Clear build cache & deploy`.
+   - After back-end is healthy, resume front-end and run `Clear build cache & deploy`.
+
+## Post-Deploy Validation
+1. Smoke test API endpoints:
+   - `GET /movies`
+   - `GET /theaters`
+   - `GET /movies/:movieId/reviews` (example: `/movies/1/reviews`)
+   - `GET /not-a-route` (confirm 404 handler behavior)
+2. Watch Render logs for 10-15 minutes:
+   - DB connection errors
+   - Migration/seed related startup errors
+   - Elevated 5xx responses
+
+## Rollback Plan
+1. Pause front-end and back-end.
+2. Re-point `PRODUCTION_DATABASE_URL` to last known good DB (if available) or recreate DB and rerun migrations/seeds.
+3. Redeploy back-end, then front-end.
+4. Re-run smoke tests and log checks.
+
+## Render.com DB Refresh History
+- June 2025: v16.9
+- July 2025: v16.10
+- October 2025: v17.6
 - November 2025: v17.7
 - December 2025: v17.7
-- January 2026:  v18.1
-- February 2026: v18.x (monthly refresh + reseed)
+- January 2026: v18.1
+- February 2026: v18.2 (monthly refresh + reseed)
+- March 2026: v18.3 (monthly refresh + reseed + runbook update)
