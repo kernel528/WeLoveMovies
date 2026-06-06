@@ -36,3 +36,6 @@ credentials*
 Security*
 
 starter-movie-front-end*
+
+# local AI session artifacts
+CODEX_RESUME_CONTEXT_*.txt
