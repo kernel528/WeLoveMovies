@@ -1,7 +1,7 @@
 # We Love Movies
 
 ## Monthly Render DB Refresh Runbook
-Last updated: 2026-03-28
+Last updated: 2026-06-05
 
 ### Scope
 This runbook covers the monthly production refresh when Render free-tier Postgres is recreated, then migrations/seeds are reapplied, and both services are redeployed.
@@ -10,6 +10,24 @@ This runbook covers the monthly production refresh when Render free-tier Postgre
 - Front-end: [kernel528-WeLoveMovies-front-end](https://dashboard.render.com/web/srv-cu61j7l6l47c73btue80)
 - Back-end: [kernel528-WeLoveMovies-back-end](https://dashboard.render.com/web/srv-cu60jl56l47c73btmg3g)
 - Database: [WeLoveMoviesDB](https://dashboard.render.com/d/dpg-cv1kpfhu0jms738j2da0-a)
+
+## Quick Monthly Refresh Checklist
+
+- [ ] Confirm current branch/commit for deployment.
+- [ ] Confirm working app URL for smoke tests.
+- [ ] Confirm access to encrypted credential notes.
+- [ ] Confirm local repo has current dependencies and `knex` scripts available.
+- [ ] Pause front-end and back-end services in Render before DB deletion.
+- [ ] Recreate the Render Postgres database and capture the new connection details.
+- [ ] Update the encrypted credential store with the new DB entry.
+- [ ] Update local `.env` with the new `PRODUCTION_DATABASE_URL`.
+- [ ] Update the Render database and service environment variables manually in the dashboard.
+- [ ] Run `npm run refresh:prod`.
+- [ ] Validate production data in DBeaver and/or `psql`.
+- [ ] Update the back-end Render `PRODUCTION_DATABASE_URL` env var.
+- [ ] Redeploy back-end, then front-end.
+- [ ] Run `npm run smoke:prod`.
+- [ ] Watch Render logs.
 
 ## Preflight Checklist
 1. Confirm current branch/commit for deployment.

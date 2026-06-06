@@ -20,6 +20,17 @@ This repository contains the source code for the We Love Movies Capstone to the 
 4. Start the API: `npm run start:dev`
 5. Verify: open `http://localhost:5001/movies`
 
+## Automation
+
+The repo now includes portable Node/npm helpers for monthly maintenance.
+
+- `npm run refresh:prod` runs production migrations, seeds, and table-count validation.
+- `npm run smoke:prod` checks the deployed API using `APP_URL` or `SMOKE_BASE_URL`.
+- `npm run monthly:verify` runs the refresh flow followed by smoke tests.
+- Set `SKIP_DOTENV=1` when you want to test the scripts without loading local `.env` values.
+
+Use `.env.sample` as the template for local and production-related environment variables.
+
 ## Project Structure
 ```plaintext
 WeLoveMovies/
@@ -124,15 +135,15 @@ WeLoveMovies/
 ### 3.0.0 - Monthly Refresh Automation Foundation
 
 1. Add `.env.example` with required variables for local, development, and production operations.
-2. Add `scripts/refresh-prod-db.sh` for production-targeted migrate/seed with required env flags.
-3. Add `scripts/smoke-prod.sh` to validate deployed API endpoints and fail fast on unexpected responses.
+2. Add `scripts/refresh-prod-db.js` for production-targeted migrate/seed with required env flags.
+3. Add `scripts/smoke-prod.js` to validate deployed API endpoints and fail fast on unexpected responses.
 4. Add npm scripts for one-command execution (for example: `refresh:prod`, `smoke:prod`, `monthly:verify`).
 5. Expand this README with an automation section that separates manual Render steps from scriptable local steps.
 
 ### 3.1.0 - Release and Documentation Automation
 
-1. Add `scripts/release-bump.sh` to update `package.json`, `package-lock.json`, `src/app.js`, and append `VERSION.md`.
-2. Add `scripts/monthly-notes-template.sh` to append a dated maintenance entry to `Monthly_Prod_Notes.md`.
+1. Add `scripts/release-bump.js` to update `package.json`, `package-lock.json`, `src/app.js`, and append `VERSION.md`.
+2. Add `scripts/monthly-notes-template.js` to append a dated maintenance entry to `Monthly_Prod_Notes.md`.
 3. Print a short post-run validation checklist at script completion.
 
 ### 3.2.0 - CI Guardrails
