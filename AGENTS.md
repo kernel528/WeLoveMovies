@@ -30,4 +30,9 @@
 - PRs are typically used for changes (merge commits reference PR numbers). Include a clear summary, tests run (e.g., `npm test`), and any DB migration/seed notes.
 
 ## Configuration & Data Notes
-- The API expects database settings via environment variables (see `knexfile.js`). For local work, set up Postgres and run `npm run migrate` + `npm run seed`.
+- The API expects database settings via environment variables (see `knexfile.js`). For local work, set up Postgres 18.4 and run `npm run migrate` + `npm run seed`.
+- Monthly Render refresh workflow:
+  - manual Render steps still required: recreate the Postgres 18.4 instance, update the Render back-end `PRODUCTION_DATABASE_URL`, and update local `.env`
+  - scripted steps: `npm run refresh:prod`, `npm run smoke:prod`, or `npm run monthly:verify`
+  - release/version files to update for a tagged release: `package.json`, `package-lock.json`, `src/app.js`, `VERSION.md`, `README.md`, and `Monthly_Prod_Notes.md`
+  - keep `scripts/monthly-refresh.js`, `scripts/smoke-prod.js`, and `.env.sample` aligned with the current workflow

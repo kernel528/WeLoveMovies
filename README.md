@@ -5,7 +5,7 @@ This repository contains the source code for the We Love Movies Capstone to the 
 
 ## Current Baseline
 
-- Latest release: `2.4.3` (2026-05-01).
+- Latest release: `2.5.0` (2026-06-05).
 - Monthly operations runbook: `Monthly_Prod_Notes.md`.
 - Version history and release notes: `VERSION.md`.
 
@@ -95,8 +95,8 @@ WeLoveMovies/
 ```
 
 ## Database Versions
-- Local Docker: Postgres 18 (example image `kernel528/postgres:18` or `kernel528/postgres:18-arm64`).
-- Render (production): Postgres 18.
+- Local Docker: Postgres 18.4 (example image `kernel528/postgres:18.4` or `kernel528/postgres:18.4-arm64`).
+- Render (production): Postgres 18.4.
 - Default local API port: `http://localhost:5001`.
 
 ## Change History (Condensed)

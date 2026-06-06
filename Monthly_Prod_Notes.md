@@ -121,3 +121,4 @@ This runbook covers the monthly production refresh when Render free-tier Postgre
 - January 2026: v18.1
 - February 2026: v18.2 (monthly refresh + reseed)
 - March 2026: v18.3 (monthly refresh + reseed + runbook update)
+- June 2026: v18.4 (monthly refresh + automation + release 2.5.0)
